@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.juripa.takemymoney.MainViewModel"
+            />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".MainActivity"
+        >
+
+        <fragment
+            android:id="@+id/map_layout"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".MapsActivity"
+            />
+
+        <FrameLayout
+            android:id="@+id/main_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/map_layout"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/save_location"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radius_20_black"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.onClickSaveLocation()}"
+                    android:text="Save Location"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/check_location"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radius_20_green"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.onClickVerify()}"
+                    android:text="Verify"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/save_location"
+                    app:layout_constraintTop_toTopOf="@id/save_location"
+                    />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.alreadyStarted ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_button_layout"
+            app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp"
+                >
+
+                <TextView
+                    style="@style/TitleText"
+                    android:text="Location"
+                    />
+
+                <TextView
+                    android:id="@+id/currentLocationText"
+                    style="@style/ContentText"
+                    android:text="@{viewModel.realAddress}"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/TitleText"
+                        android:text="Address"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:gravity="bottom"
+                        android:onClick="@{() -> viewModel.onClickEtherScan()}"
+                        android:paddingBottom="3dp"
+                        android:text="View on etherscan"
+                        android:textColor="@color/gray"
+                        android:textSize="12dp"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/addressText"
+                    style="@style/ContentText"
+                    android:text="@{viewModel.chainAddress}"
+                    />
+
+                <TextView
+                    style="@style/TitleText"
+                    android:text="ETH"
+                    />
+
+                <TextView
+                    android:id="@+id/currentEthText"
+                    style="@style/ContentText"
+                    android:text="@{viewModel.ethBalance.toString()}"
+                    />
+
+                <TextView
+                    style="@style/TitleText"
+                    android:text="Locked ETH"
+                    />
+
+                <TextView
+                    android:id="@+id/lockEthText"
+                    style="@style/ContentText"
+                    android:text="@{viewModel.lockEthBalance.toString()}"
+                    />
+
+                <TextView
+                    style="@style/TitleText"
+                    android:text="HEALTH"
+                    />
+
+                <TextView
+                    android:id="@+id/currentHealthText"
+                    style="@style/ContentText"
+                    android:text="@{viewModel.tokenBalance.toString()}"
+                    />
+
+            </LinearLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

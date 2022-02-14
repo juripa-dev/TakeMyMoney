@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
+        <entry key="app/src/main/res/drawable/outline_content_copy_24.xml" value="0.307" />
         <entry key="app/src/main/res/drawable/radius_20.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/radius_20_green.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/drawable/radius_20_red.xml" value="0.1125" />
+        <entry key="app/src/main/res/drawable/redius_20_black.xml" value="0.307" />
+        <entry key="app/src/main/res/layout/activity_launch.xml" value="0.5609375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21755725190839695" />
+        <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.1" />
       </map>
     </option>
   </component>
